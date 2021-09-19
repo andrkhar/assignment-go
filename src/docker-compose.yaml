@@ -25,6 +25,7 @@ services:
         build: dev
         ports:
             - "127.0.0.1:80:1323"
+            - "127.0.0.1:8080:1324"
         volumes:
             - ./echo/server.go:/apps/echo/server.go
             - ./generator/server.go:/apps/generator/server.go
@@ -34,6 +35,10 @@ services:
             - MYSQL_PASSWORD=${MYSQL_PASSWORD}
         stdin_open: true
         tty: true
-#generator:
-#    build: generator
+    generator:
+        depends_on:
+            - echo 
+        build: generator
+        ports:
+           - "127.0.0.1:8080:1324"
 

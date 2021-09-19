@@ -46,9 +46,9 @@ type (
 const (
 	dataSourceTemplate = "user:password@tcp(mysql)/database"
 	sqlQueryInsert     = "INSERT INTO data (`Sensor Value`, ID1, ID2, Timestamp) VALUES (?, ?, ?, ?)"
-	timeLayoutMessage  = "Mon 01/02/2006-03:04:05"
+	timeLayoutMessage  = "Mon 01/02/2006-15:04:05"
 	messageLocation    = "Asia/Singapore"
-	timeLayoutDatabase = "2006-01-02 03:04:05"
+	timeLayoutDatabase = "2006-01-02 15:04:05"
 	sqlQuerySelect     = "SELECT `Sensor Value`, ID1, ID2, Timestamp FROM data"
 )
 
