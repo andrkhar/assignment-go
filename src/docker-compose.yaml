@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+    mysql:
+        image: mysql:8
+        environment:
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        volumes:
+            - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro
+    echo:
+        depends_on: 
+            - mysql
+        build: echo
+        ports:
+            - "127.0.0.1:80:1323"
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    dev:
+        depends_on:
+            - mysql
+        build: dev
+        ports:
+            - "127.0.0.1:80:1323"
+        volumes:
+            - ./echo/server.go:/apps/echo/server.go
+            - ./generator/server.go:/apps/generator/server.go
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        stdin_open: true
+        tty: true
+#generator:
+#    build: generator
+
