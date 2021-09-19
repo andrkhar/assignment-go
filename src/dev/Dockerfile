@@ -30,6 +30,7 @@ RUN go get github.com/go-sql-driver/mysql
 
 WORKDIR /apps/generator
 RUN go mod init generator
+RUN go get github.com/labstack/echo/v4 
 
 WORKDIR /apps
 
