@@ -23,13 +23,8 @@ type (
 
 const (
 	timeLayoutMessage  = "Mon 01/02/2006-15:04:05"
-	messageLocation    = "Asia/Singapore"
-	timeLayoutDatabase = "2006-01-02 03:04:05"
 	timerDuration      = 2 * time.Second
 )
-
-var locationSG, _ = time.LoadLocation(messageLocation)
-var locationUTC, _ = time.LoadLocation("UTC")
 
 var timer *time.Timer
 
