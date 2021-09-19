@@ -3,13 +3,12 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"strings"
 	"time"
-
-	//"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/labstack/echo/v4"
@@ -76,8 +75,8 @@ func store(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Error 400. Failed parse timestamp.")
 	}
 
-	// fmt.Println(parsedTime.Unix())
-	// fmt.Println(parsedTime.Location())
+	log.Println("ParsedTime Unix:", parsedTime.Unix())
+	log.Println("ParsedTime Location:", parsedTime.Location())
 
 	formatedTime := parsedTime.Format(timeLayoutDatabase)
 
@@ -126,8 +125,8 @@ func getCustomSQLQuerySelect(data *QueryData, c echo.Context) (string, error) {
 		}
 		t := time.Unix(i, 0)
 
-		// fmt.Println(t.Unix())
-		// fmt.Println(t.Location())
+		log.Println("StartTimestamp Unix:", t.Unix())
+		log.Println("StartTimestamp Location:", t.Location())
 
 		data.StartTimestamp = t.Format(timeLayoutDatabase)
 		filter := "Timestamp>='" + data.StartTimestamp + "'"
@@ -142,8 +141,8 @@ func getCustomSQLQuerySelect(data *QueryData, c echo.Context) (string, error) {
 		}
 		t := time.Unix(i, 0)
 
-		// fmt.Println(t.Unix())
-		// fmt.Println(t.Location())
+		log.Println("EndTimestamp Unix:", t.Unix())
+		log.Println("EndTimestamp Location:", t.Location())
 
 		data.EndTimestamp = t.Format(timeLayoutDatabase)
 		filter := "Timestamp<='" + data.EndTimestamp + "'"
@@ -155,7 +154,7 @@ func getCustomSQLQuerySelect(data *QueryData, c echo.Context) (string, error) {
 		query += " WHERE " + strings.Join(filters, " AND ")
 	}
 
-	// fmt.Println(query)
+	log.Println("Query:", query)
 	return query, nil
 }
 

@@ -1,7 +1,9 @@
 package main
 
 import (
-	"fmt"
+	"bytes"
+	"encoding/json"
+	"log"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -23,6 +25,7 @@ const (
 	timeLayoutMessage  = "Mon 01/02/2006-15:04:05"
 	messageLocation    = "Asia/Singapore"
 	timeLayoutDatabase = "2006-01-02 03:04:05"
+	timerDuration      = 2 * time.Second
 )
 
 var locationSG, _ = time.LoadLocation(messageLocation)
@@ -41,9 +44,18 @@ func getRandomData() (data *SensorData) {
 
 func sendData() {
 	data := getRandomData()
-	fmt.Println("Data sent: ", data)
-	var duration time.Duration = 2 * time.Second
-	timer.Reset(duration)
+	requestBody, err := json.Marshal(data)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	_, err = http.Post("http://echo:1323/data", "application/json", bytes.NewBuffer(requestBody))
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	log.Println("Data sent: ", data)
+	timer.Reset(timerDuration)
 }
 
 func start(c echo.Context) error {
