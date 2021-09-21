@@ -8,10 +8,14 @@
 
 
 ## Usage
-Run containers:
-
 ```
 cd src
+cp template.env .env
+```
+Edit `.env` file to add MYSQL credentials
+
+Run containers:
+```
 docker-compose up -d generator
 ```
 
