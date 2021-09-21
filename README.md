@@ -1,7 +1,7 @@
 # Coding Assignment in GO
 
 ## Services
-1. **mysql** - container with a database
+1. **mysql** - container with a database.
 2. **echo** - server with API to store and retrieve data to the database.
 3. **generator** - server with API to run a generator that makes requests to **echo** API to populate the database.
 4. **dev** - container used for development only. It has vim installed with vim-go plugin enabled.
@@ -12,7 +12,7 @@
 cd src
 cp template.env .env
 ```
-Edit `.env` file to add MYSQL credentials
+Edit `.env` file to add MYSQL credentials.
 
 Run containers:
 ```
